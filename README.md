@@ -43,3 +43,10 @@ is not a string.
 `..` is preserved as a literal segment. Resolving it would require knowing
 the current working directory, which the caller has not provided, so the tree
 shows what was actually in the input rather than guessing.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
